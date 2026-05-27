@@ -39,6 +39,27 @@ Covers ~50 major conferences tied to journals on the ABS 2026 list, including:
 
 ---
 
+## Local setup (scraper)
+
+The scraper requires Python 3.11+. Create a conda environment and install dependencies:
+
+```bash
+conda create -n bizdeadlines python=3.11
+conda activate bizdeadlines
+pip install -r requirements.txt
+```
+
+Then run the scraper:
+
+```bash
+python scrape.py                  # full run: rebuild from xlsx + scrape websites
+python scrape.py --build-only     # rebuild from xlsx only (no web scraping)
+python scrape.py --scrape-only    # scrape existing data.js (skip xlsx rebuild)
+python scrape.py --force          # ignore the 30-day cooldown
+```
+
+---
+
 ## Deploying to GitHub Pages
 
 1. **Fork or create a new repo** on GitHub
