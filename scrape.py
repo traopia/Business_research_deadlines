@@ -226,18 +226,18 @@ RANK_ORDER = {"A*": 0, "A": 1, "B": 2}
 
 # Compiled date patterns, ordered most→least specific
 _DATE_PATTERNS = [
-    (re.compile(r"\b(202[6-9])[-./](0[1-9]|1[0-2])[-./](0[1-9]|[12]\d|3[01])\b"), "iso"),
+    (re.compile(r"\b(202[5-9])[-./](0[1-9]|1[0-2])[-./](0[1-9]|[12]\d|3[01])\b"), "iso"),
     (re.compile(
         r"\b(\d{1,2})\s+(January|February|March|April|May|June|July|August|"
-        r"September|October|November|December)[,\s]+(202[6-9])\b", re.I), "dmy_long"),
+        r"September|October|November|December)[,\s]+(202[5-9])\b", re.I), "dmy_long"),
     (re.compile(
         r"\b(January|February|March|April|May|June|July|August|"
-        r"September|October|November|December)\s+(\d{1,2})[,\s]+(202[6-9])\b", re.I), "mdy_long"),
+        r"September|October|November|December)\s+(\d{1,2})[,\s]+(202[5-9])\b", re.I), "mdy_long"),
     (re.compile(
-        r"\b(\d{1,2})\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\.?[,\s]+(202[6-9])\b",
+        r"\b(\d{1,2})\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\.?[,\s]+(202[5-9])\b",
         re.I), "dmy_short"),
     (re.compile(
-        r"\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\.?\s+(\d{1,2})[,\s]+(202[6-9])\b",
+        r"\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\.?\s+(\d{1,2})[,\s]+(202[5-9])\b",
         re.I), "mdy_short"),
 ]
 
@@ -306,7 +306,7 @@ def _extract_best_dates(text):
         for pattern, fmt in _DATE_PATTERNS:
             for m in pattern.finditer(line):
                 d = _parse_date_match(m, fmt)
-                if d and d >= date(TODAY.year, 1, 1):
+                if d and d >= date(TODAY.year - 1, 6, 1):
                     if d not in found or (is_sub and not found[d]["is_sub"]):
                         found[d] = {
                             "is_sub": is_sub,
@@ -331,15 +331,29 @@ def _extract_best_dates(text):
         deadline = sub_past[-1] if sub_past else None
 
     # Best conf dates: first/last date after deadline (or today)
-    anchor = deadline if deadline and deadline >= TODAY else TODAY
-    future = [d for d in all_dates if d >= anchor]
-    conf_start = future[0] if future else None
+    # Use the first non-sub future date as anchor when deadline is past,
+    # to avoid picking a conference date as the conf_start anchor.
+    if deadline and deadline >= TODAY:
+        anchor = deadline
+    else:
+        anchor = TODAY
+
+    # Separate future dates into non-sub (conference) and sub categories
+    future_nonsub = [d for d in all_dates if d >= anchor and not found[d]["is_sub"]]
+    future_all    = [d for d in all_dates if d >= anchor]
+
+    # Prefer non-submission dates for conf_start (avoids picking deadline == conf_start)
+    conf_start = future_nonsub[0] if future_nonsub else (future_all[0] if future_all else None)
     conf_end   = None
     if conf_start:
-        nearby = [d for d in future
+        nearby = [d for d in future_all
                   if (d - conf_start).days <= 10 and d != conf_start]
         if nearby:
             conf_end = nearby[-1]
+
+    # Sanity: a "deadline" that equals or follows the conference start is actually a conf date
+    if deadline and conf_start and deadline >= conf_start:
+        deadline = None
 
     return deadline, conf_start, conf_end
 
@@ -456,6 +470,12 @@ def scrape_and_update(conferences, verbose=True):
         # at least 7 days after deadline (avoid deadline == conf_start artifacts)
         if not c.get("_manual_conf") and cs and cs >= TODAY:
             dl_date = date.fromisoformat(c["deadline"])
+            # If stored deadline == scraped conf_start, previous scrape confused a conf date
+            # for a submission deadline — reset to a typical estimate so the gap check works.
+            if dl_date == cs:
+                dl_date = next_deadline_from_typical(c.get("deadline_typical", "")) or (cs - timedelta(days=200))
+                c["deadline"] = dl_date.isoformat()
+                c["date_confirmed"] = False
             gap = (cs - dl_date).days
             # Conference must be 7 days to 18 months after deadline
             if 7 <= gap <= 540:
@@ -530,69 +550,14 @@ def write_data_js(conferences, scrape_date):
 # Format: slug → {field: value, ...}
 # Re-run `python scrape.py` to discover new ones automatically.
 MANUAL_OVERRIDES = {
-    "ieeeieem": {
-        "conference_start": "2026-12-02",
-        "conference_end":   "2026-12-05",
-        "location":         "Marina Bay Sands, Singapore",
+    # Deadline was Dec 1 2025 (past); conference is Jun 2-5 2026.
+    # Next cycle deadline ~Oct-Nov 2026; showing 2026 conference while it's still upcoming.
+    "emacannualconferen": {
+        "conference_start": "2026-06-02",
+        "conference_end":   "2026-06-05",
         "conf_confirmed":   True,
-        "note": "Conference: 2–5 Dec 2026 (confirmed). Deadline ~June–July (estimate).",
-    },
-    "icis": {
-        "conference_start": "2026-12-13",
-        "conference_end":   "2026-12-16",
-        "conf_confirmed":   True,
-        "note": "Deadline was May 1, 2026 (passed). Conference Dec 13–16 2026 (confirmed). Next ~May 2027.",
-    },
-    "efmaannualmeeting": {
-        "conference_start": "2026-06-24",
-        "conference_end":   "2026-06-26",
-        "conf_confirmed":   True,
-        "note": "Conference 24–26 June 2026 (confirmed). Submission deadline typical Jan–Feb.",
-    },
-    "euramannualconfere": {
-        "conference_start": "2026-06-16",
-        "conference_end":   "2026-06-19",
-        "location":         "Kristiansand, Norway",
-        "conf_confirmed":   True,
-        "note": "Conference 16–19 June 2026, Kristiansand (confirmed). Deadline ~Nov 2026 for next edition.",
-    },
-    "isbeannualconferen": {
-        "conference_start": "2026-06-29",
-        "conference_end":   "2026-07-02",
-        "location":         "Birmingham, UK",
-        "conf_confirmed":   True,
-        "note": "Conference 29 Jun–2 Jul 2026, Birmingham University (confirmed). Deadline ~Apr–May.",
-    },
-    "ttraannualinternat": {
-        "conference_start": "2026-06-24",
-        "conference_end":   "2026-06-26",
-        "conf_confirmed":   True,
-        "note": "Conference 24–26 June 2026, Tampa FL (confirmed). 2027: Seattle, Jun 29–Jul 1.",
-    },
-    "servsigconference": {
-        "conference_start": "2026-06-29",
-        "conference_end":   "2026-07-02",
-        "conf_confirmed":   True,
-        "note": "Let's Talk About Service 2026, Eindhoven (~Jun 29, confirmed). Biennial.",
-    },
-    "aomannualmeeting": {
-        "conference_start": "2026-07-31",
-        "conference_end":   "2026-08-04",
-        "conf_confirmed":   True,
-        "note": "Deadline was Jan 13 2026 (confirmed, passed). Conference Jul 31–Aug 4 2026. Next ~Jan 2027.",
-    },
-    "rdmanagementconfer": {
-        "conference_start": "2026-06-22",
-        "conference_end":   "2026-06-24",
-        "location":         "Manchester, UK",
-        "conf_confirmed":   True,
-        "note": "Conference 22–24 June 2026, Manchester (confirmed). Deadline ~Nov–Feb.",
-    },
-    "ieeeitsc": {
-        "conference_start": "2026-09-15",
-        "conference_end":   "2026-09-18",
-        "conf_confirmed":   True,
-        "note": "Paper deadline was Mar 1 2026 (passed). Late-breaking ~Jun 30. Conference Sep 2026.",
+        "deadline":         "2026-11-15",
+        "date_confirmed":   False,
     },
 }
 
