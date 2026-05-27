@@ -4,7 +4,7 @@
 
 A static webapp inspired by [aideadlines.org](http://aideadlines.org) — live countdown timers, topic filters, and ABS ranking filters for 50+ business and management conferences.
 
-🔗 **Live site**: `https://YOUR-USERNAME.github.io/biz-deadlines/`
+🔗 **Live site**: `https://traopia.github.io/Business_research_deadlines/`
 
 ---
 
