@@ -1,0 +1,50 @@
+name: Refresh conference data
+
+on:
+  schedule:
+    # First day of every month at 07:00 UTC
+    - cron: "0 7 1 * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Force re-scrape even if run recently (yes/no)"
+        required: false
+        default: "no"
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4 lxml openpyxl
+
+      - name: Run scraper
+        run: |
+          FORCE_FLAG=""
+          if [ "${{ github.event.inputs.force }}" = "yes" ]; then
+            FORCE_FLAG="--force"
+          fi
+          python scrape.py $FORCE_FLAG
+
+      - name: Commit and push if data changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data.js
+          if git diff --staged --quiet; then
+            echo "No changes to data.js — nothing to commit."
+          else
+            git commit -m "chore: refresh conference data [$(date -u +%Y-%m-%d)]"
+            git push
+          fi

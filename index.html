@@ -8,28 +8,25 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #f5f2eb;
-  --bg2: #ede9df;
-  --bg3: #e3ddd1;
-  --ink: #1a1714;
-  --ink2: #5a5248;
-  --ink3: #9b9088;
+  --bg:     #f5f2eb;
+  --bg2:    #ede9df;
+  --bg3:    #e3ddd1;
+  --ink:    #1a1714;
+  --ink2:   #5a5248;
+  --ink3:   #9b9088;
   --accent: #c0392b;
-  --accent2: #e8d5b7;
   --border: #d5cfc4;
-  --card: #faf8f3;
-  --green: #2d6a4f;
+  --card:   #faf8f3;
+  --green:  #2d6a4f;
   --yellow: #e9c46a;
-  --red: #c0392b;
+  --red:    #c0392b;
   --orange: #e07b39;
   --radius: 3px;
-  --mono: 'DM Mono', monospace;
-  --serif: 'DM Serif Display', serif;
-  --sans: 'DM Sans', sans-serif;
+  --mono:   'DM Mono', monospace;
+  --serif:  'DM Serif Display', serif;
+  --sans:   'DM Sans', sans-serif;
 }
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 body {
   background: var(--bg);
   color: var(--ink);
@@ -48,104 +45,105 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 56px;
+  height: 52px;
   position: sticky;
   top: 0;
   z-index: 100;
 }
-
 .logo {
   font-family: var(--serif);
-  font-size: 22px;
+  font-size: 21px;
   letter-spacing: -0.5px;
   color: var(--bg);
   text-decoration: none;
 }
 .logo span { color: var(--accent); font-style: italic; }
-
-nav { display: flex; gap: 1.5rem; align-items: center; }
+nav { display: flex; gap: 1.25rem; align-items: center; }
 nav a {
   color: var(--bg3);
   text-decoration: none;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 400;
   letter-spacing: 0.03em;
   transition: color .15s;
 }
 nav a:hover { color: var(--bg); }
+.header-note {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink3);
+  letter-spacing: .05em;
+  background: rgba(255,255,255,.07);
+  padding: 3px 8px;
+  border-radius: 2px;
+}
 
-/* MAIN LAYOUT */
-.page { display: flex; min-height: calc(100vh - 56px); }
+/* LAYOUT */
+.page { display: flex; min-height: calc(100vh - 52px); }
 
 /* SIDEBAR */
 aside {
-  width: 240px;
+  width: 230px;
   flex-shrink: 0;
   border-right: 1.5px solid var(--border);
   background: var(--card);
-  padding: 1.5rem 1rem;
+  padding: 1.25rem .9rem;
   position: sticky;
-  top: 56px;
-  height: calc(100vh - 56px);
+  top: 52px;
+  height: calc(100vh - 52px);
   overflow-y: auto;
 }
-
-.sidebar-section { margin-bottom: 1.75rem; }
-
+.sidebar-section { margin-bottom: 1.5rem; }
 .sidebar-label {
   font-family: var(--mono);
   font-size: 10px;
-  letter-spacing: 0.12em;
+  letter-spacing: .12em;
   text-transform: uppercase;
   color: var(--ink3);
-  margin-bottom: 0.6rem;
-  padding-bottom: 0.4rem;
+  margin-bottom: .5rem;
+  padding-bottom: .35rem;
   border-bottom: 1px solid var(--border);
 }
-
 .filter-btn {
   display: flex;
   align-items: center;
   gap: 6px;
   width: 100%;
-  padding: 5px 8px;
-  margin-bottom: 3px;
+  padding: 4px 7px;
+  margin-bottom: 2px;
   background: none;
   border: 1.5px solid transparent;
   border-radius: var(--radius);
   cursor: pointer;
   font-family: var(--sans);
-  font-size: 12.5px;
+  font-size: 12px;
   color: var(--ink2);
   text-align: left;
   transition: all .12s;
 }
 .filter-btn:hover { background: var(--bg2); color: var(--ink); }
-.filter-btn.active {
-  background: var(--ink);
-  color: var(--bg);
-  border-color: var(--ink);
+.filter-btn.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.filter-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.filter-count {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink3);
+  margin-left: auto;
 }
-
-.filter-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
+.filter-btn.active .filter-count { color: rgba(255,255,255,.5); }
 
 .ranking-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 44px;
-  height: 30px;
+  height: 28px;
   border: 1.5px solid var(--border);
   border-radius: var(--radius);
   background: none;
   cursor: pointer;
   font-family: var(--mono);
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 500;
   color: var(--ink2);
   margin-right: 4px;
@@ -153,22 +151,21 @@ aside {
   transition: all .12s;
 }
 .ranking-btn:hover { border-color: var(--ink); color: var(--ink); }
-.ranking-btn.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 .ranking-btn.astar.active { background: #c0392b; border-color: #c0392b; color: white; }
-.ranking-btn.a.active { background: #2563eb; border-color: #2563eb; color: white; }
-.ranking-btn.b.active { background: #059669; border-color: #059669; color: white; }
+.ranking-btn.a.active    { background: #2563eb; border-color: #2563eb; color: white; }
+.ranking-btn.b.active    { background: #059669; border-color: #059669; color: white; }
 
 .sort-btn {
   display: block;
   width: 100%;
-  padding: 5px 8px;
-  margin-bottom: 3px;
+  padding: 4px 7px;
+  margin-bottom: 2px;
   background: none;
   border: 1.5px solid transparent;
   border-radius: var(--radius);
   cursor: pointer;
   font-family: var(--sans);
-  font-size: 12.5px;
+  font-size: 12px;
   color: var(--ink2);
   text-align: left;
   transition: all .12s;
@@ -178,47 +175,79 @@ aside {
 
 .clear-btn {
   width: 100%;
-  padding: 7px;
+  padding: 6px;
   background: none;
   border: 1.5px solid var(--border);
   border-radius: var(--radius);
   cursor: pointer;
   font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.05em;
+  font-size: 10.5px;
+  letter-spacing: .05em;
   color: var(--ink3);
   transition: all .12s;
 }
 .clear-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-/* MAIN CONTENT */
+/* SEARCH */
+.search-wrap { position: relative; margin-bottom: .65rem; }
+.search-input {
+  width: 100%;
+  padding: 6px 10px 6px 28px;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-family: var(--sans);
+  font-size: 12.5px;
+  color: var(--ink);
+  outline: none;
+  transition: border-color .12s;
+}
+.search-input:focus { border-color: var(--ink); }
+.search-icon {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--ink3);
+  font-size: 13px;
+  pointer-events: none;
+}
+
+/* MAIN */
 main {
   flex: 1;
   min-width: 0;
-  padding: 2rem 2rem 4rem;
+  padding: 1.75rem 2rem 4rem;
 }
-
 .topbar {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   flex-wrap: wrap;
   gap: .5rem;
 }
-
 .result-count {
   font-family: var(--mono);
   font-size: 11px;
   color: var(--ink3);
-  letter-spacing: 0.05em;
+  letter-spacing: .05em;
 }
-
-.timezone-note {
+.legend {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 10.5px;
   color: var(--ink3);
+  flex-wrap: wrap;
 }
+.legend-item { display: flex; align-items: center; gap: 4px; }
+.legend-dot { width: 8px; height: 8px; border-radius: 1px; }
+.legend-dot.green  { background: var(--green); }
+.legend-dot.orange { background: var(--orange); }
+.legend-dot.red    { background: var(--red); }
+.legend-dot.gray   { background: var(--ink3); }
 
 /* CONFERENCE CARDS */
 .conf-list { display: flex; flex-direction: column; gap: 0; }
@@ -227,92 +256,121 @@ main {
   background: var(--card);
   border: 1.5px solid var(--border);
   border-radius: var(--radius);
-  margin-bottom: 10px;
+  margin-bottom: 9px;
   overflow: hidden;
   transition: border-color .15s, box-shadow .15s;
-  animation: fadeIn .2s ease both;
+  animation: fadeIn .18s ease both;
 }
 .conf-card:hover {
   border-color: var(--ink);
-  box-shadow: 3px 3px 0 var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
 }
+@keyframes fadeIn { from { opacity:0; transform: translateY(3px); } to { opacity:1; } }
 
-@keyframes fadeIn { from { opacity:0; transform: translateY(4px); } to { opacity:1; transform: none; } }
+/* STATUS BAR */
+.status-bar { height: 3px; display: flex; }
+.status-bar .fill { flex: 1; background: var(--bg3); position: relative; }
+.status-bar .progress {
+  position: absolute; left:0; top:0; bottom:0;
+  background: linear-gradient(90deg, var(--green), var(--yellow));
+  transition: width .3s;
+}
+.status-bar.urgent .progress { background: linear-gradient(90deg, var(--orange), var(--red)); }
+.status-bar.past .progress { background: var(--bg3); }
 
 .card-body {
   display: grid;
-  grid-template-columns: 180px 1fr auto;
+  grid-template-columns: 160px 1fr auto;
   align-items: start;
-  gap: 0;
 }
 
-/* COUNTDOWN COLUMN */
+/* COUNTDOWN */
 .card-countdown {
-  padding: 1rem 1.25rem;
+  padding: .9rem 1rem;
   border-right: 1.5px solid var(--border);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100px;
+  min-height: 95px;
   background: var(--bg2);
 }
-
 .countdown-label {
   font-family: var(--mono);
   font-size: 9px;
-  letter-spacing: 0.12em;
+  letter-spacing: .12em;
   text-transform: uppercase;
   color: var(--ink3);
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
-
 .countdown-display {
   font-family: var(--serif);
-  font-size: 38px;
+  font-size: 34px;
   line-height: 1;
   color: var(--ink);
   letter-spacing: -1px;
 }
-
-.countdown-unit {
+.countdown-unit { font-family: var(--mono); font-size: 9px; color: var(--ink3); margin-top: 2px; }
+.countdown-display.urgent { color: var(--red); }
+.countdown-display.soon   { color: var(--orange); }
+.countdown-display.past   { color: var(--ink3); text-decoration: line-through; }
+.deadline-approx {
   font-family: var(--mono);
   font-size: 10px;
-  color: var(--ink3);
-  margin-top: 3px;
-}
-
-.countdown-display.urgent { color: var(--red); }
-.countdown-display.soon { color: var(--orange); }
-.countdown-display.past { color: var(--ink3); text-decoration: line-through; }
-
-.deadline-date {
-  font-family: var(--mono);
-  font-size: 11px;
   color: var(--ink2);
-  margin-top: 8px;
+  margin-top: 6px;
+  text-align: center;
+}
+.approx-tag {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  color: var(--ink3);
+  letter-spacing: .04em;
+  margin-top: 2px;
+}
+.date-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 6px;
+  border-radius: 2px;
+  font-family: var(--mono);
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: .04em;
+  margin-top: 4px;
+}
+.date-status.confirmed {
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+.date-status.estimated {
+  background: #fffbeb;
+  color: #92400e;
+  border: 1px solid #fcd34d;
+}
+.date-status.conf-ok {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
 }
 
-/* INFO COLUMN */
-.card-info {
-  padding: 1rem 1.25rem;
-}
-
+/* INFO */
+.card-info { padding: .9rem 1.1rem; min-width: 0; }
 .card-header {
   display: flex;
   align-items: baseline;
-  gap: .75rem;
+  gap: .6rem;
   flex-wrap: wrap;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
 }
-
 .conf-short {
   font-family: var(--serif);
-  font-size: 17px;
+  font-size: 16px;
   color: var(--ink);
   line-height: 1.2;
 }
-
 .conf-short a {
   color: inherit;
   text-decoration: none;
@@ -320,139 +378,130 @@ main {
   transition: border-color .15s;
 }
 .conf-short a:hover { border-color: var(--accent); }
-
-.conf-name {
-  font-size: 12px;
-  color: var(--ink2);
-  font-weight: 300;
-  font-style: italic;
-}
-
 .conf-meta {
   display: flex;
   align-items: center;
-  gap: .75rem;
-  margin-bottom: .6rem;
+  gap: .6rem;
+  margin-bottom: .5rem;
   flex-wrap: wrap;
 }
-
-.conf-dates {
+.conf-dates, .conf-location {
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 10.5px;
   color: var(--ink2);
 }
-.conf-dates::before { content: "📅 "; }
-
-.conf-location {
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--ink2);
-}
-.conf-location::before { content: "📍 "; }
-
 .conf-note {
-  font-size: 12px;
+  font-size: 11.5px;
   color: var(--ink3);
   font-style: italic;
-  margin-bottom: .5rem;
+  margin-bottom: .45rem;
+  line-height: 1.5;
 }
-
-.tag-list { display: flex; flex-wrap: wrap; gap: 4px; }
-
+.tag-list { display: flex; flex-wrap: wrap; gap: 3px; margin-bottom: .45rem; }
 .topic-tag {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
-  padding: 2px 7px;
+  padding: 1px 6px;
   border-radius: 2px;
   font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.04em;
+  font-size: 9.5px;
+  letter-spacing: .03em;
   color: white;
   font-weight: 500;
 }
 
+/* JOURNALS SECTION */
+.journals-toggle {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink3);
+  cursor: pointer;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 0;
+  border: none;
+  background: none;
+  transition: color .12s;
+}
+.journals-toggle:hover { color: var(--ink2); }
+.journals-toggle .arrow { transition: transform .15s; }
+.journals-toggle.open .arrow { transform: rotate(90deg); }
+.journals-list {
+  display: none;
+  margin-top: 5px;
+  padding: 6px 8px;
+  background: var(--bg2);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+.journals-list.open { display: block; }
+.journal-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 0;
+  font-size: 11px;
+  border-bottom: 1px solid var(--border);
+}
+.journal-row:last-child { border-bottom: none; }
+.journal-row a {
+  color: var(--ink2);
+  text-decoration: none;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 11px;
+}
+.journal-row a:hover { color: var(--accent); }
+.j-rating {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  padding: 1px 5px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.j-Astar { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+.j-A     { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+.j-B     { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+
 /* RANKING COLUMN */
 .card-ranking {
-  padding: 1rem;
+  padding: .9rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   border-left: 1.5px solid var(--border);
-  min-width: 70px;
+  min-width: 64px;
 }
-
 .rank-badge {
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 500;
-  padding: 2px 7px;
+  padding: 2px 6px;
   border-radius: 2px;
 }
 .rank-Astar { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
-.rank-A { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
-.rank-B { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
-
+.rank-A     { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+.rank-B     { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
 .conf-link-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   border: 1.5px solid var(--border);
   border-radius: var(--radius);
   color: var(--ink3);
   text-decoration: none;
-  font-size: 14px;
+  font-size: 13px;
   transition: all .12s;
 }
 .conf-link-icon:hover { border-color: var(--ink); color: var(--ink); background: var(--bg2); }
-
-/* STATUS BAR */
-.status-bar {
-  height: 4px;
-  display: flex;
-}
-.status-bar .fill { flex: 1; background: var(--bg3); position: relative; }
-.status-bar .progress {
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  background: linear-gradient(90deg, var(--green), var(--yellow));
-  transition: width .3s;
-}
-.status-bar.urgent .progress { background: linear-gradient(90deg, var(--orange), var(--red)); }
-.status-bar.past .progress { background: var(--bg3); }
-
-/* EMPTY STATE */
-.empty {
-  text-align: center;
-  padding: 5rem 2rem;
-  color: var(--ink3);
-}
-.empty-icon { font-size: 3rem; margin-bottom: 1rem; opacity: .5; }
-.empty h3 { font-family: var(--serif); font-size: 22px; color: var(--ink2); margin-bottom: .5rem; }
-.empty p { font-size: 13px; }
-
-/* LEGEND STRIP */
-.legend {
-  display: flex;
-  gap: 1.5rem;
-  align-items: center;
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--ink3);
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-}
-.legend-item { display: flex; align-items: center; gap: 5px; }
-.legend-dot {
-  width: 10px; height: 10px; border-radius: 1px;
-}
-.legend-dot.green { background: var(--green); }
-.legend-dot.orange { background: var(--orange); }
-.legend-dot.red { background: var(--red); }
-.legend-dot.gray { background: var(--ink3); }
 
 /* PAST TOGGLE */
 .past-toggle {
@@ -460,39 +509,17 @@ main {
   align-items: center;
   gap: 6px;
   cursor: pointer;
-  font-size: 12.5px;
+  font-size: 12px;
   color: var(--ink2);
   user-select: none;
 }
 .past-toggle input { cursor: pointer; accent-color: var(--ink); }
 
-/* SEARCH */
-.search-wrap {
-  position: relative;
-  margin-bottom: .75rem;
-}
-.search-input {
-  width: 100%;
-  padding: 7px 10px 7px 30px;
-  background: var(--bg);
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius);
-  font-family: var(--sans);
-  font-size: 13px;
-  color: var(--ink);
-  outline: none;
-  transition: border-color .12s;
-}
-.search-input:focus { border-color: var(--ink); }
-.search-icon {
-  position: absolute;
-  left: 9px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--ink3);
-  font-size: 13px;
-  pointer-events: none;
-}
+/* EMPTY */
+.empty { text-align: center; padding: 4rem 2rem; color: var(--ink3); }
+.empty-icon { font-size: 2.5rem; margin-bottom: .75rem; opacity: .5; }
+.empty h3 { font-family: var(--serif); font-size: 20px; color: var(--ink2); margin-bottom: .4rem; }
+.empty p { font-size: 12.5px; }
 
 /* RESPONSIVE */
 @media (max-width: 900px) {
@@ -500,24 +527,80 @@ main {
   .card-body { grid-template-columns: 140px 1fr; }
   .card-ranking { display: none; }
 }
-@media (max-width: 600px) {
+@media (max-width: 580px) {
   main { padding: 1rem; }
   .card-body { grid-template-columns: 1fr; }
-  .card-countdown { border-right: none; border-bottom: 1.5px solid var(--border); flex-direction: row; gap: 1rem; min-height: auto; padding: .75rem 1rem; }
+  .card-countdown {
+    border-right: none;
+    border-bottom: 1.5px solid var(--border);
+    flex-direction: row;
+    gap: 1rem;
+    min-height: auto;
+    padding: .6rem .9rem;
+    justify-content: flex-start;
+  }
 }
 
-/* ALL TOPICS toggle */
-.topics-grid { display: flex; flex-direction: column; gap: 2px; }
+/* MOBILE FILTER BAR */
+.mobile-filter-bar {
+  display: none;
+  padding: .6rem 1rem;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  gap: .5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+@media (max-width: 900px) { .mobile-filter-bar { display: flex; } }
+.mobile-rank-btn {
+  padding: 3px 10px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  background: none;
+  font-family: var(--mono);
+  font-size: 11px;
+  cursor: pointer;
+  color: var(--ink2);
+}
+.mobile-rank-btn.active { background: var(--ink); color: white; border-color: var(--ink); }
+.mobile-search {
+  flex: 1;
+  min-width: 120px;
+  padding: 4px 10px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-family: var(--sans);
+  font-size: 12px;
+  background: var(--bg);
+  color: var(--ink);
+  outline: none;
+}
 </style>
 </head>
 <body>
 <header>
   <a href="index.html" class="logo">Biz<span>Deadlines</span></a>
   <nav>
-    <a href="#" onclick="scrollToTop()">Countdowns</a>
-    <a href="https://github.com" target="_blank" style="opacity:.5">GitHub ↗</a>
+    <span class="header-note" id="headerNote">ABS 2026 · 62 conferences</span>
+    <a href="https://github.com/traopia/Business_research_deadlines" target="_blank" rel="noopener">GitHub ↗</a>
   </nav>
 </header>
+
+<!-- Staleness banner — shown if data is > 30 days old -->
+<div id="staleBanner" style="display:none;background:#fef9c3;border-bottom:1px solid #fde047;padding:7px 2rem;font-size:12px;font-family:var(--mono);color:#713f12;align-items:center;gap:.75rem;flex-wrap:wrap">
+  <span>⚠ Conference data was last refreshed <strong id="staleAge"></strong> ago — some deadlines may be outdated.</span>
+  <a id="staleAction" href="https://github.com/traopia/Business_research_deadlines/actions/workflows/update-data.yml"
+     target="_blank" rel="noopener"
+     style="color:#713f12;font-weight:500;text-decoration:underline">Trigger refresh on GitHub Actions ↗</a>
+</div>
+
+<!-- mobile filter bar -->
+<div class="mobile-filter-bar" id="mobileBar">
+  <input class="mobile-search" id="mobileSearch" type="text" placeholder="Search…" oninput="syncSearch(this)">
+  <button class="mobile-rank-btn active" data-rank="A*" onclick="toggleRank(this)">A*</button>
+  <button class="mobile-rank-btn active" data-rank="A"  onclick="toggleRank(this)">A</button>
+  <button class="mobile-rank-btn active" data-rank="B"  onclick="toggleRank(this)">B</button>
+</div>
 
 <div class="page">
   <aside>
@@ -532,16 +615,16 @@ main {
       <div class="sidebar-label">ABS Ranking</div>
       <div>
         <button class="ranking-btn astar active" data-rank="A*" onclick="toggleRank(this)">A*</button>
-        <button class="ranking-btn a active" data-rank="A" onclick="toggleRank(this)">A</button>
-        <button class="ranking-btn b active" data-rank="B" onclick="toggleRank(this)">B</button>
+        <button class="ranking-btn a active"    data-rank="A"  onclick="toggleRank(this)">A</button>
+        <button class="ranking-btn b active"    data-rank="B"  onclick="toggleRank(this)">B</button>
       </div>
     </div>
 
     <div class="sidebar-section">
       <div class="sidebar-label">Sort by</div>
-      <button class="sort-btn active" data-sort="deadline" onclick="setSort(this)">📅 Deadline (soonest)</button>
-      <button class="sort-btn" data-sort="name" onclick="setSort(this)">🔤 Name A–Z</button>
-      <button class="sort-btn" data-sort="conference" onclick="setSort(this)">🗓 Conference date</button>
+      <button class="sort-btn active" data-sort="deadline"    onclick="setSort(this)">📅 Deadline (soonest)</button>
+      <button class="sort-btn"        data-sort="name"        onclick="setSort(this)">🔤 Name A–Z</button>
+      <button class="sort-btn"        data-sort="conference"  onclick="setSort(this)">🗓 Conference date</button>
     </div>
 
     <div class="sidebar-section">
@@ -549,7 +632,7 @@ main {
       <button class="filter-btn active" data-topic="ALL" onclick="toggleTopic('ALL', this)">
         <span class="filter-dot" style="background:#1a1714"></span> All topics
       </button>
-      <div class="topics-grid" id="topicFilters"></div>
+      <div id="topicFilters"></div>
     </div>
 
     <div class="sidebar-section">
@@ -558,18 +641,22 @@ main {
       </label>
     </div>
 
+    <div class="sidebar-section">
+      <label class="past-toggle">
+        <input type="checkbox" id="confirmedOnly" onchange="applyFilters()"> Confirmed dates only
+      </label>
+    </div>
+
     <button class="clear-btn" onclick="clearFilters()">RESET FILTERS</button>
   </aside>
 
   <main>
     <div class="topbar">
-      <div>
-        <div class="result-count" id="resultCount">Loading…</div>
-      </div>
+      <div class="result-count" id="resultCount">Loading…</div>
       <div class="legend">
         <span class="legend-item"><span class="legend-dot green"></span> &gt;30 days</span>
         <span class="legend-item"><span class="legend-dot orange"></span> 8–30 days</span>
-        <span class="legend-item"><span class="legend-dot red"></span> &lt;7 days</span>
+        <span class="legend-item"><span class="legend-dot red"></span> ≤7 days</span>
         <span class="legend-item"><span class="legend-dot gray"></span> Passed</span>
       </div>
     </div>
@@ -585,23 +672,31 @@ main {
 
 <script src="data.js"></script>
 <script>
-// State
 let activeTopics = new Set(['ALL']);
-let activeRanks = new Set(['A*', 'A', 'B']);
-let currentSort = 'deadline';
-let countdownTimers = {};
+let activeRanks  = new Set(['A*','A','B']);
+let currentSort  = 'deadline';
 
-// Init topic filters
+/* ── topic filter buttons ── */
 function buildTopicFilters() {
   const container = document.getElementById('topicFilters');
-  Object.entries(TOPICS).sort((a,b) => a[1].label.localeCompare(b[1].label)).forEach(([code, t]) => {
-    const btn = document.createElement('button');
-    btn.className = 'filter-btn';
-    btn.dataset.topic = code;
-    btn.innerHTML = `<span class="filter-dot" style="background:${t.color}"></span> ${t.label} <span style="font-family:var(--mono);font-size:10px;color:var(--ink3);margin-left:auto">${code}</span>`;
-    btn.onclick = () => toggleTopic(code, btn);
-    container.appendChild(btn);
-  });
+  // Count conferences per topic (across full dataset)
+  const counts = {};
+  CONFERENCES.forEach(c => (c.topics||[]).forEach(t => { counts[t] = (counts[t]||0)+1; }));
+
+  Object.entries(TOPICS)
+    .sort((a,b) => a[1].label.localeCompare(b[1].label))
+    .forEach(([code, t]) => {
+      if (!(code in counts)) return;
+      const btn = document.createElement('button');
+      btn.className = 'filter-btn';
+      btn.dataset.topic = code;
+      btn.innerHTML =
+        `<span class="filter-dot" style="background:${t.color}"></span>`+
+        ` ${t.label}`+
+        `<span class="filter-count">${counts[code]}</span>`;
+      btn.onclick = () => toggleTopic(code, btn);
+      container.appendChild(btn);
+    });
 }
 
 function toggleTopic(code, btn) {
@@ -615,7 +710,7 @@ function toggleTopic(code, btn) {
     if (activeTopics.has(code)) {
       activeTopics.delete(code);
       btn.classList.remove('active');
-      if (activeTopics.size === 0) {
+      if (!activeTopics.size) {
         activeTopics.add('ALL');
         document.querySelector('[data-topic="ALL"]').classList.add('active');
       }
@@ -629,10 +724,15 @@ function toggleTopic(code, btn) {
 
 function toggleRank(btn) {
   const r = btn.dataset.rank;
+  const allBtns = document.querySelectorAll(`[data-rank="${r}"]`);
   if (activeRanks.has(r)) {
-    if (activeRanks.size > 1) { activeRanks.delete(r); btn.classList.remove('active'); }
+    if (activeRanks.size > 1) {
+      activeRanks.delete(r);
+      allBtns.forEach(b => b.classList.remove('active'));
+    }
   } else {
-    activeRanks.add(r); btn.classList.add('active');
+    activeRanks.add(r);
+    allBtns.forEach(b => b.classList.add('active'));
   }
   applyFilters();
 }
@@ -644,146 +744,170 @@ function setSort(btn) {
   applyFilters();
 }
 
+function syncSearch(el) {
+  document.getElementById('searchInput').value = el.value;
+  applyFilters();
+}
+
 function clearFilters() {
   activeTopics = new Set(['ALL']);
-  activeRanks = new Set(['A*','A','B']);
-  currentSort = 'deadline';
+  activeRanks  = new Set(['A*','A','B']);
+  currentSort  = 'deadline';
   document.getElementById('searchInput').value = '';
+  const ms = document.getElementById('mobileSearch');
+  if (ms) ms.value = '';
   document.getElementById('showPast').checked = false;
+  document.getElementById('confirmedOnly').checked = false;
   document.querySelectorAll('[data-topic]').forEach(b => b.classList.remove('active'));
   document.querySelector('[data-topic="ALL"]').classList.add('active');
-  document.querySelectorAll('.ranking-btn').forEach(b => b.classList.add('active'));
+  document.querySelectorAll('.ranking-btn, .mobile-rank-btn').forEach(b => b.classList.add('active'));
   document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
   document.querySelector('[data-sort="deadline"]').classList.add('active');
   applyFilters();
 }
 
-// Date helpers
+/* ── date helpers ── */
 function parseDate(s) { return new Date(s + 'T23:59:59'); }
 function daysUntil(s) {
-  const now = new Date();
-  const d = parseDate(s);
-  return Math.ceil((d - now) / 86400000);
+  return Math.ceil((parseDate(s) - Date.now()) / 86400000);
 }
-function formatDate(s) {
-  const d = parseDate(s);
-  return d.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+function fmtDate(s) {
+  return parseDate(s).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
 }
-function formatConferenceDates(start, end) {
-  const s = new Date(start + 'T00:00:00');
-  const e = new Date(end + 'T00:00:00');
-  const opts = { month:'short', day:'numeric' };
-  if (s.getFullYear() === e.getFullYear() && s.getMonth() === e.getMonth()) {
+function fmtConfDates(start, end) {
+  const s = new Date(start+'T00:00:00'), e = new Date(end+'T00:00:00');
+  const opts = {month:'short', day:'numeric'};
+  if (s.getMonth() === e.getMonth() && s.getFullYear() === e.getFullYear())
     return `${s.toLocaleDateString('en-US', opts)}–${e.getDate()}, ${s.getFullYear()}`;
-  }
-  return `${s.toLocaleDateString('en-US', opts)} – ${e.toLocaleDateString('en-US', opts)}, ${e.getFullYear()}`;
+  return `${s.toLocaleDateString('en-US', opts)} – ${e.toLocaleDateString('en-US', {month:'short', day:'numeric'})}, ${e.getFullYear()}`;
+}
+function countdownInfo(days) {
+  if (days < 0) return { text:'Closed', cls:'past' };
+  if (days === 0) return { text:'Today!', cls:'urgent' };
+  if (days <= 7)  return { text: days+'', cls:'urgent' };
+  if (days <= 30) return { text: days+'', cls:'soon' };
+  return { text: days+'', cls:'' };
 }
 
-function countdownStr(days) {
-  if (days < 0) return { text: 'Closed', cls: 'past' };
-  if (days === 0) return { text: 'Today!', cls: 'urgent' };
-  if (days <= 7) return { text: days + '', cls: 'urgent' };
-  if (days <= 30) return { text: days + '', cls: 'soon' };
-  return { text: days + '', cls: '' };
-}
-
-function rankBadgesHtml(conf) {
-  const ranks = conf.ranking || [];
-  return ranks.map(r => {
-    const cls = r === 'A*' ? 'rank-Astar' : r === 'A' ? 'rank-A' : 'rank-B';
-    return `<span class="rank-badge ${cls}">${r}</span>`;
-  }).join('');
-}
-
+/* ── card renderer ── */
 function renderCard(conf) {
   const days = daysUntil(conf.deadline);
-  const { text: ctText, cls: ctCls } = countdownStr(days);
+  const { text, cls } = countdownInfo(days);
   const unit = Math.abs(days) === 1 ? 'day' : 'days';
-  const statusCls = ctCls === 'urgent' ? 'urgent' : ctCls === 'past' ? 'past' : '';
+  const statusCls = cls === 'urgent' ? 'urgent' : cls === 'past' ? 'past' : '';
 
-  // Progress bar: fraction through window from conf-date-90days to deadline
   const deadlineMs = parseDate(conf.deadline).getTime();
   const startMs = deadlineMs - 90 * 86400000;
-  const nowMs = Date.now();
-  const pct = Math.min(100, Math.max(0, ((nowMs - startMs) / (deadlineMs - startMs)) * 100));
+  const pct = Math.min(100, Math.max(0, ((Date.now() - startMs) / (deadlineMs - startMs)) * 100));
 
-  const topicTags = (conf.topics || []).map(t => {
-    const info = TOPICS[t] || { label: t, color: '#888' };
+  const topicTags = (conf.topics||[]).map(t => {
+    const info = TOPICS[t] || { label:t, color:'#888' };
     return `<span class="topic-tag" style="background:${info.color}">${t}</span>`;
   }).join('');
 
+  const rankBadges = (conf.ranking||[]).map(r => {
+    const cls2 = r==='A*' ? 'rank-Astar' : r==='A' ? 'rank-A' : 'rank-B';
+    return `<span class="rank-badge ${cls2}">${r}</span>`;
+  }).join('');
+
+  // Status badge: confirmed from website vs estimated
+  let statusBadge;
+  if (conf.date_confirmed) {
+    statusBadge = `<span class="date-status confirmed">✓ confirmed</span>`;
+  } else if (conf.conf_confirmed) {
+    statusBadge = `<span class="date-status conf-ok">📅 conf ✓ · dl ~est.</span>`;
+  } else {
+    statusBadge = `<span class="date-status estimated">~ estimated</span>`;
+  }
+
+  // Typical deadline display
+  const typLabel = conf.deadline_typical
+    ? `<div class="approx-tag">Typical: ${conf.deadline_typical}</div>`
+    : '';
+
+  // Journals list (collapsed by default)
+  const journals = conf.journals || [];
+  const journalsHtml = journals.length ? `
+    <button class="journals-toggle" onclick="toggleJournals(this)">
+      <span class="arrow">▶</span> ${journals.length} associated journal${journals.length>1?'s':''}
+    </button>
+    <div class="journals-list">
+      ${journals.map(j => {
+        const rc = j.rating==='A*'?'j-Astar':j.rating==='A'?'j-A':'j-B';
+        const link = j.url ? `<a href="${j.url}" target="_blank" rel="noopener" title="${j.name}">${j.name}</a>`
+                           : `<span>${j.name}</span>`;
+        return `<div class="journal-row"><span class="j-rating ${rc}">${j.rating}</span>${link}</div>`;
+      }).join('')}
+    </div>` : '';
+
   return `
 <div class="conf-card" data-id="${conf.id}" data-deadline="${conf.deadline}">
-  <div class="status-bar ${statusCls}">
-    <div class="fill"><div class="progress" style="width:${pct}%"></div></div>
-  </div>
+  <div class="status-bar ${statusCls}"><div class="fill"><div class="progress" style="width:${pct}%"></div></div></div>
   <div class="card-body">
     <div class="card-countdown">
-      <div class="countdown-label">Deadline</div>
-      <div class="countdown-display ${ctCls}">${ctText}</div>
-      <div class="countdown-unit">${ctCls === 'past' ? '' : unit + ' left'}</div>
-      <div class="deadline-date">${formatDate(conf.deadline)}</div>
+      <div class="countdown-label">Deadline in</div>
+      <div class="countdown-display ${cls}">${text}</div>
+      <div class="countdown-unit">${cls==='past'?'':(unit+' left')}</div>
+      <div class="deadline-approx">${fmtDate(conf.deadline)}</div>
+      ${typLabel}
+      ${statusBadge}
     </div>
     <div class="card-info">
       <div class="card-header">
         <div class="conf-short"><a href="${conf.url}" target="_blank" rel="noopener">${conf.short}</a></div>
-        <div class="conf-name">${conf.name}</div>
       </div>
       <div class="conf-meta">
-        <span class="conf-dates">${formatConferenceDates(conf.conference_start, conf.conference_end)}</span>
-        <span class="conf-location">${conf.location}</span>
+        <span class="conf-dates">📅 ${fmtConfDates(conf.conference_start, conf.conference_end)}${conf.conf_month_typical?' ('+conf.conf_month_typical+')':''}</span>
+        ${conf.location && conf.location !== 'TBA' ? `<span class="conf-location">📍 ${conf.location}</span>` : ''}
       </div>
       ${conf.note ? `<div class="conf-note">${conf.note}</div>` : ''}
       <div class="tag-list">${topicTags}</div>
+      ${journalsHtml}
     </div>
     <div class="card-ranking">
-      ${rankBadgesHtml(conf)}
+      ${rankBadges}
       <a class="conf-link-icon" href="${conf.url}" target="_blank" rel="noopener" title="Conference website">↗</a>
     </div>
   </div>
 </div>`;
 }
 
+function toggleJournals(btn) {
+  btn.classList.toggle('open');
+  const list = btn.nextElementSibling;
+  if (list) list.classList.toggle('open');
+}
+
+/* ── filter + render ── */
 function applyFilters() {
-  const query = document.getElementById('searchInput').value.toLowerCase().trim();
+  const query    = document.getElementById('searchInput').value.toLowerCase().trim();
   const showPast = document.getElementById('showPast').checked;
 
+  const confirmedOnly = document.getElementById('confirmedOnly').checked;
+
   let filtered = CONFERENCES.filter(c => {
-    // Past filter
-    const days = daysUntil(c.deadline);
-    if (!showPast && days < 0) return false;
-
-    // Ranking filter
-    const hasRank = (c.ranking || []).some(r => activeRanks.has(r));
-    if (!hasRank) return false;
-
-    // Topic filter
-    if (!activeTopics.has('ALL')) {
-      const hasT = (c.topics || []).some(t => activeTopics.has(t));
-      if (!hasT) return false;
-    }
-
-    // Search
+    if (!showPast && daysUntil(c.deadline) < 0) return false;
+    if (!(c.ranking||[]).some(r => activeRanks.has(r))) return false;
+    if (!activeTopics.has('ALL') && !(c.topics||[]).some(t => activeTopics.has(t))) return false;
+    if (confirmedOnly && !c.date_confirmed && !c.conf_confirmed) return false;
     if (query) {
-      const haystack = (c.short + ' ' + c.name + ' ' + c.location + ' ' + (c.topics||[]).join(' ')).toLowerCase();
-      if (!haystack.includes(query)) return false;
+      const hay = [c.short, c.name, c.location,
+        ...(c.topics||[]), ...(c.journals||[]).map(j=>j.name)].join(' ').toLowerCase();
+      if (!hay.includes(query)) return false;
     }
-
     return true;
   });
 
-  // Sort
-  filtered.sort((a, b) => {
-    if (currentSort === 'deadline') return new Date(a.deadline) - new Date(b.deadline);
-    if (currentSort === 'name') return a.short.localeCompare(b.short);
+  filtered.sort((a,b) => {
+    if (currentSort === 'deadline')   return new Date(a.deadline) - new Date(b.deadline);
+    if (currentSort === 'name')       return a.short.localeCompare(b.short);
     if (currentSort === 'conference') return new Date(a.conference_start) - new Date(b.conference_start);
     return 0;
   });
 
-  const list = document.getElementById('confList');
+  const list  = document.getElementById('confList');
   const empty = document.getElementById('emptyState');
-
-  if (filtered.length === 0) {
+  if (!filtered.length) {
     list.innerHTML = '';
     empty.style.display = 'block';
   } else {
@@ -793,85 +917,104 @@ function applyFilters() {
 
   const total = CONFERENCES.filter(c => showPast || daysUntil(c.deadline) >= 0).length;
   document.getElementById('resultCount').textContent =
-    `Showing ${filtered.length} of ${total} conferences`;
+    `Showing ${filtered.length} of ${total} conference${total===1?'':'s'}`;
 
   updateURL();
 }
 
-// URL state
+/* ── URL state ── */
 function updateURL() {
-  const topics = [...activeTopics].join(',');
-  const ranks = [...activeRanks].join(',');
-  const sort = currentSort;
-  const q = document.getElementById('searchInput').value;
-  const past = document.getElementById('showPast').checked;
   const params = new URLSearchParams();
-  if (topics !== 'ALL') params.set('topics', topics);
-  if (ranks !== 'A*,A,B') params.set('ranks', ranks);
-  if (sort !== 'deadline') params.set('sort', sort);
+  if (!activeTopics.has('ALL')) params.set('topics', [...activeTopics].join(','));
+  const allRanks = ['A*','A','B'];
+  if ([...activeRanks].sort().join(',') !== allRanks.sort().join(','))
+    params.set('ranks', [...activeRanks].join(','));
+  if (currentSort !== 'deadline') params.set('sort', currentSort);
+  const q = document.getElementById('searchInput').value;
   if (q) params.set('q', q);
-  if (past) params.set('past', '1');
+  if (document.getElementById('showPast').checked) params.set('past','1');
   const qs = params.toString();
-  history.replaceState(null, '', qs ? '?' + qs : location.pathname);
+  history.replaceState(null,'', qs ? '?'+qs : location.pathname);
 }
 
 function loadURL() {
-  const params = new URLSearchParams(location.search);
-  if (params.has('topics')) {
-    activeTopics = new Set(params.get('topics').split(','));
+  const p = new URLSearchParams(location.search);
+  if (p.has('topics')) {
+    activeTopics = new Set(p.get('topics').split(','));
     document.querySelectorAll('[data-topic]').forEach(b => b.classList.remove('active'));
     activeTopics.forEach(t => {
       const btn = document.querySelector(`[data-topic="${t}"]`);
       if (btn) btn.classList.add('active');
     });
   }
-  if (params.has('ranks')) {
-    activeRanks = new Set(params.get('ranks').split(','));
-    document.querySelectorAll('.ranking-btn').forEach(b => {
-      if (activeRanks.has(b.dataset.rank)) b.classList.add('active');
-      else b.classList.remove('active');
+  if (p.has('ranks')) {
+    activeRanks = new Set(p.get('ranks').split(','));
+    document.querySelectorAll('.ranking-btn, .mobile-rank-btn').forEach(b => {
+      b.classList.toggle('active', activeRanks.has(b.dataset.rank));
     });
   }
-  if (params.has('sort')) {
-    currentSort = params.get('sort');
-    document.querySelectorAll('.sort-btn').forEach(b => {
-      if (b.dataset.sort === currentSort) b.classList.add('active');
-      else b.classList.remove('active');
-    });
+  if (p.has('sort')) {
+    currentSort = p.get('sort');
+    document.querySelectorAll('.sort-btn').forEach(b =>
+      b.classList.toggle('active', b.dataset.sort === currentSort));
   }
-  if (params.has('q')) document.getElementById('searchInput').value = params.get('q');
-  if (params.get('past') === '1') document.getElementById('showPast').checked = true;
+  if (p.has('q')) {
+    document.getElementById('searchInput').value = p.get('q');
+    const ms = document.getElementById('mobileSearch');
+    if (ms) ms.value = p.get('q');
+  }
+  if (p.get('past')==='1') document.getElementById('showPast').checked = true;
 }
 
-function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+/* ── staleness banner ── */
+function initStaleBanner() {
+  if (typeof SCRAPE_DATE === 'undefined') return;
+  const scraped  = new Date(SCRAPE_DATE + 'T00:00:00');
+  const now      = new Date();
+  const ageDays  = Math.floor((now - scraped) / 86400000);
+  const ageMonths = ageDays / 30;
 
-// Live countdown update every minute
+  // Update header note with last-refresh date
+  const note = document.getElementById('headerNote');
+  if (note) {
+    const fmt = scraped.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+    note.textContent = `ABS 2026 · 62 conferences · refreshed ${fmt}`;
+  }
+
+  // Show banner if data is > 30 days old
+  if (ageDays > 30) {
+    const banner = document.getElementById('staleBanner');
+    const ageEl  = document.getElementById('staleAge');
+    if (banner && ageEl) {
+      ageEl.textContent = ageDays >= 60
+        ? `${Math.round(ageMonths)} months`
+        : `${ageDays} days`;
+      banner.style.display = 'flex';
+    }
+  }
+}
+
+/* ── live countdown (updates every minute) ── */
 function startLiveCountdowns() {
   setInterval(() => {
     document.querySelectorAll('.conf-card').forEach(card => {
       const dl = card.dataset.deadline;
       if (!dl) return;
       const days = daysUntil(dl);
-      const { text, cls } = countdownStr(days);
+      const { text, cls } = countdownInfo(days);
       const el = card.querySelector('.countdown-display');
       const unitEl = card.querySelector('.countdown-unit');
-      if (el) {
-        el.textContent = text;
-        el.className = 'countdown-display ' + cls;
-      }
-      if (unitEl && cls !== 'past') {
-        const u = Math.abs(days) === 1 ? 'day' : 'days';
-        unitEl.textContent = cls === 'past' ? '' : u + ' left';
-      }
+      if (el) { el.textContent = text; el.className = 'countdown-display ' + cls; }
+      if (unitEl) unitEl.textContent = cls === 'past' ? '' : (Math.abs(days)===1?'day':'days')+' left';
     });
   }, 60000);
 }
 
-// Boot
 buildTopicFilters();
 loadURL();
 applyFilters();
 startLiveCountdowns();
+initStaleBanner();
 </script>
 </body>
 </html>
